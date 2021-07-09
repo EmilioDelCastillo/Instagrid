@@ -51,10 +51,7 @@ class MainViewController: UIViewController {
             
             switch layout {
             case .first:
-                let image = createImage()
-                topStackView.addArrangedSubview(image)
-                image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(testLol(_:))))
-                
+                topStackView.addArrangedSubview(createImage())
                 bottomStackView.addArrangedSubview(createImage())
                 bottomStackView.addArrangedSubview(createImage())
                 
@@ -81,14 +78,20 @@ class MainViewController: UIViewController {
     func createImage() -> UIImageView {
         let image = UIImage(named: "Plus")
         let imageView = UIImageView(image: image)
+        
         imageView.backgroundColor = .white
         imageView.contentMode = .center
+        imageView.isUserInteractionEnabled = true
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(loadImage(_:)))
+        imageView.addGestureRecognizer(gesture)
         
         return imageView
     }
     
-    @objc func testLol(_ sender: UIGestureRecognizer) {
-        print("Touch! in \(String(describing: sender.view))")
+    @objc func loadImage(_ sender: UITapGestureRecognizer) {
+        guard let imageView = sender.view as? UIImageView else { return }
+        
     }
 }
 

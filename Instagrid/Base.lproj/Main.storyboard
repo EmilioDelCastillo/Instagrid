@@ -28,13 +28,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPG-pb-KUn" userLabel="Preview">
                                 <rect key="frame" x="41.333333333333343" y="287.33333333333337" width="331.33333333333326" height="331.33333333333337"/>
                                 <subviews>
-                                    <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="WSG-o2-j0e">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="WSG-o2-j0e">
                                         <rect key="frame" x="16.666666666666657" y="16.666666666666686" width="298" height="298"/>
                                         <subviews>
-                                            <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IWQ-Fg-VkL">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IWQ-Fg-VkL">
                                                 <rect key="frame" x="0.0" y="0.0" width="298" height="145"/>
                                             </stackView>
-                                            <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="F7e-fa-y7u">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="F7e-fa-y7u">
                                                 <rect key="frame" x="0.0" y="153" width="298" height="145"/>
                                             </stackView>
                                         </subviews>
