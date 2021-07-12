@@ -41,47 +41,9 @@ class MainViewController: UIViewController {
             
             let layout: Layout = Layout.allCases[index]
             
-            setImages(for: layout)
+            setupUI(for: layout)
             
         }
-    }
-    
-    func setImages(for layout: Layout) {
-        /// The total animation duration in seconds
-        let ANIMATION_DURATION = 0.8
-        
-        UIView.animate(withDuration: ANIMATION_DURATION / 2) {
-            self.topStackView.alpha = 0
-            self.bottomStackView.alpha = 0
-            
-        } completion: { [self] _ in
-            topStackView.removeSubviews()
-            bottomStackView.removeSubviews()
-            
-            switch layout {
-            case .first:
-                topStackView.addArrangedSubview(createImage())
-                bottomStackView.addArrangedSubview(createImage())
-                bottomStackView.addArrangedSubview(createImage())
-                
-            case .second:
-                topStackView.addArrangedSubview(createImage())
-                topStackView.addArrangedSubview(createImage())
-                bottomStackView.addArrangedSubview(createImage())
-                
-            case .third:
-                topStackView.addArrangedSubview(createImage())
-                topStackView.addArrangedSubview(createImage())
-                bottomStackView.addArrangedSubview(createImage())
-                bottomStackView.addArrangedSubview(createImage())
-            }
-            
-            UIView.animate(withDuration: ANIMATION_DURATION / 2) {
-                topStackView.alpha = 1
-                bottomStackView.alpha = 1
-            }
-        }
-        
     }
     
     func createImage() -> UIImageView {
@@ -126,10 +88,4 @@ class MainViewController: UIViewController {
         
         self.present(pickerAlert, animated: true, completion: nil)
     }
-}
-
-enum Layout: CaseIterable {
-    case first
-    case second
-    case third
 }
