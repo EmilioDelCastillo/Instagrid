@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     private var pickerConfiguration = PHPickerConfiguration()
     lazy private var phPicker = PHPickerViewController(configuration: pickerConfiguration)
 
-    
+    @IBOutlet weak var canvas: UIView!
     @IBOutlet var layoutSelectionButtons: [UIButton]!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var bottomStackView: UIStackView!
@@ -30,6 +30,8 @@ class MainViewController: UIViewController {
         phPicker.delegate = self
     }
     
+    /// Changes the selected layout.
+    /// - Parameter sender: The tapped button.
     @IBAction private func selectLayout(_ sender: UIButton) {
         sender.isUserInteractionEnabled = false
         
@@ -47,12 +49,14 @@ class MainViewController: UIViewController {
         }
     }
     
+    /// Prepares the app to load an image in the tapped zone.
     @objc func loadImage(_ sender: UITapGestureRecognizer) {
         guard let imageView = sender.view as? UIImageView else { return }
         currentImageView = imageView
         pickImage()
     }
     
+    /// Presents an alert to the user, asking to select a source in order to pick an image.
     private func pickImage() {
         let pickerAlert = UIAlertController(title: "Pick Image",
                                             message: "Choose Camera or Library",

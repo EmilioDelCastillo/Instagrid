@@ -211,6 +211,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomStackView" destination="F7e-fa-y7u" id="5xt-x2-02F"/>
+                        <outlet property="canvas" destination="BPG-pb-KUn" id="uA2-Lb-pgc"/>
                         <outlet property="topStackView" destination="IWQ-Fg-VkL" id="pz1-m3-9cO"/>
                         <outletCollection property="layoutSelectionButtons" destination="4OZ-lz-cvp" collectionClass="NSMutableArray" id="Mea-um-60Z"/>
                         <outletCollection property="layoutSelectionButtons" destination="7ng-x2-5j1" collectionClass="NSMutableArray" id="9LC-bw-1dE"/>
