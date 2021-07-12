@@ -10,6 +10,8 @@ import UIKit
 class MainViewController: UIViewController {
 
     private var instagrid = Instagrid()
+    private var currentImageView: UIImageView?
+    private var imagePicker = UIImagePickerController()
     
     @IBOutlet var layoutSelectionButtons: [UIButton]!
     @IBOutlet weak var topStackView: UIStackView!
@@ -17,13 +19,13 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         setImages(for: .second)
+        imagePicker.delegate = self
     }
     
     @IBAction private func selectLayout(_ sender: UIButton) {
         sender.isUserInteractionEnabled = false
         
         if let index = layoutSelectionButtons.firstIndex(of: sender) {
-            instagrid.selectLayout()
             
             for button in layoutSelectionButtons {
                 button.isSelected = button == sender
@@ -91,7 +93,51 @@ class MainViewController: UIViewController {
     
     @objc func loadImage(_ sender: UITapGestureRecognizer) {
         guard let imageView = sender.view as? UIImageView else { return }
+        currentImageView = imageView
+        pickImage()
+    }
+    
+    private func pickImage() {
+        let pickerAlert = UIAlertController(title: "Pick Image",
+                                            message: "Choose Camera or Library",
+                                            preferredStyle: .alert)
         
+        // Check if the camera is available before adding the option
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            
+            let camera = UIAlertAction(title: "Camera", style: .default) { _ in
+                self.imagePicker.sourceType = .camera
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
+            pickerAlert.addAction(camera)
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let gallery = UIAlertAction(title: "Library", style: .default) { _ in
+                self.imagePicker.sourceType = .photoLibrary
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
+            pickerAlert.addAction(gallery)
+        }
+        
+        
+        self.present(pickerAlert, animated: true, completion: nil)
+    }
+    
+}
+
+extension MainViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            currentImageView?.clipsToBounds = true
+            currentImageView?.contentMode = .scaleAspectFill
+            currentImageView?.image = selectedImage
+        }
+        dismiss(animated: true)
     }
 }
 
