@@ -21,7 +21,7 @@ extension MainViewController {
     func setupUI(for layout: Layout) {
         /// The total animation duration in seconds
         let ANIMATION_DURATION = 0.8
-        
+        isChangingLayout = true
         UIView.animate(withDuration: ANIMATION_DURATION / 2) {
             self.topStackView.alpha = 0
             self.bottomStackView.alpha = 0
@@ -51,6 +51,8 @@ extension MainViewController {
             UIView.animate(withDuration: ANIMATION_DURATION / 2) {
                 topStackView.alpha = 1
                 bottomStackView.alpha = 1
+            } completion: { _ in
+                self.isChangingLayout = false
             }
         }
         

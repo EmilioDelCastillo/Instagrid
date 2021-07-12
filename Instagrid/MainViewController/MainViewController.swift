@@ -11,13 +11,14 @@ import PhotosUI
 class MainViewController: UIViewController {
     
     // MARK: - Properties
-    private var instagrid = Instagrid()
     var currentImageView: UIImageView?
     private var imagePicker = UIImagePickerController()
     private var swipeDirection: (x:CGFloat, y:CGFloat) = (0, -50)
 
     private var pickerConfiguration = PHPickerConfiguration()
     lazy private var phPicker = PHPickerViewController(configuration: pickerConfiguration)
+    
+    var isChangingLayout = false
 
     // MARK: - Outlets
     @IBOutlet weak var canvas: UIView!
@@ -51,6 +52,7 @@ class MainViewController: UIViewController {
     /// Changes the selected layout.
     /// - Parameter sender: The tapped button.
     @IBAction private func selectLayout(_ sender: UIButton) {
+        guard !isChangingLayout else { return }
         sender.isUserInteractionEnabled = false
         
         if let index = layoutSelectionButtons.firstIndex(of: sender) {
@@ -118,6 +120,7 @@ class MainViewController: UIViewController {
     /// Animates the swipe and shares the grid.
     @objc func share (_ sender: UISwipeGestureRecognizer) {
         guard let image = captureLayout() else { return }
+        
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         activityViewController.completionWithItemsHandler = { _, _, _, _ in
             UIView.animate(withDuration: 0.5) {
