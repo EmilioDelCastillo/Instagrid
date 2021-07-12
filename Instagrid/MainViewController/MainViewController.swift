@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
     @IBOutlet var layoutSelectionButtons: [UIButton]!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var bottomStackView: UIStackView!
+    @IBOutlet weak var swipeDirectionLabel: UILabel!
     
     override func viewDidLoad() {
         // The default layout is the second one
@@ -28,6 +29,13 @@ class MainViewController: UIViewController {
         pickerConfiguration.filter = .images
         imagePicker.delegate = self
         phPicker.delegate = self
+        
+        // Orientation changes
+        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     /// Changes the selected layout.
@@ -47,13 +55,6 @@ class MainViewController: UIViewController {
             setupUI(for: layout)
             
         }
-    }
-    
-    /// Prepares the app to load an image in the tapped zone.
-    @objc func loadImage(_ sender: UITapGestureRecognizer) {
-        guard let imageView = sender.view as? UIImageView else { return }
-        currentImageView = imageView
-        pickImage()
     }
     
     /// Presents an alert to the user, asking to select a source in order to pick an image.
@@ -78,5 +79,20 @@ class MainViewController: UIViewController {
         pickerAlert.addAction(library)
         
         self.present(pickerAlert, animated: true, completion: nil)
+    }
+    
+    /// Prepares the app to load an image in the tapped zone.
+    @objc func loadImage(_ sender: UITapGestureRecognizer) {
+        guard let imageView = sender.view as? UIImageView else { return }
+        currentImageView = imageView
+        pickImage()
+    }
+    
+    @objc func rotated() {
+        if UIDevice.current.orientation.isLandscape {
+            swipeDirectionLabel.text = "Swipe left to share"
+        } else {
+            swipeDirectionLabel.text = "Swipe up to share"
+        }
     }
 }
