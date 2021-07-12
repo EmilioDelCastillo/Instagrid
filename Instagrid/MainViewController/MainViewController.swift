@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var bottomStackView: UIStackView!
     
     override func viewDidLoad() {
+        // The default layout is the second one
         setupUI(for: .second)
         pickerConfiguration.filter = .images
         imagePicker.delegate = self
@@ -44,20 +45,6 @@ class MainViewController: UIViewController {
             setupUI(for: layout)
             
         }
-    }
-    
-    func createImage() -> UIImageView {
-        let image = UIImage(named: "Plus")
-        let imageView = UIImageView(image: image)
-        
-        imageView.backgroundColor = .white
-        imageView.contentMode = .center
-        imageView.isUserInteractionEnabled = true
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(loadImage(_:)))
-        imageView.addGestureRecognizer(gesture)
-        
-        return imageView
     }
     
     @objc func loadImage(_ sender: UITapGestureRecognizer) {

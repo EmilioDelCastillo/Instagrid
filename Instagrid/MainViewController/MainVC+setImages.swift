@@ -55,6 +55,20 @@ extension MainViewController {
         }
         
     }
+    
+    private func createImage() -> UIImageView {
+        let image = UIImage(named: "Plus")
+        let imageView = UIImageView(image: image)
+        
+        imageView.backgroundColor = .white
+        imageView.contentMode = .center
+        imageView.isUserInteractionEnabled = true
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(loadImage(_:)))
+        imageView.addGestureRecognizer(gesture)
+        
+        return imageView
+    }
 }
 
 
