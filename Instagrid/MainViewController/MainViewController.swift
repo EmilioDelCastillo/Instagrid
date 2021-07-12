@@ -14,8 +14,8 @@ class MainViewController: UIViewController {
     var currentImageView: UIImageView?
     private var imagePicker = UIImagePickerController()
 
-    private var phPickerConfiguration = PHPickerConfiguration()
-    lazy private var phPicker = PHPickerViewController(configuration: phPickerConfiguration)
+    private var pickerConfiguration = PHPickerConfiguration()
+    lazy private var phPicker = PHPickerViewController(configuration: pickerConfiguration)
 
     
     @IBOutlet var layoutSelectionButtons: [UIButton]!
@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         setupUI(for: .second)
-        phPickerConfiguration.filter = .images
+        pickerConfiguration.filter = .images
         imagePicker.delegate = self
         phPicker.delegate = self
     }
