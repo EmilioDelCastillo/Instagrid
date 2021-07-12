@@ -123,22 +123,6 @@ class MainViewController: UIViewController {
         
         self.present(pickerAlert, animated: true, completion: nil)
     }
-    
-}
-
-extension MainViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[.originalImage] as? UIImage {
-            currentImageView?.clipsToBounds = true
-            currentImageView?.contentMode = .scaleAspectFill
-            currentImageView?.image = selectedImage
-        }
-        dismiss(animated: true)
-    }
 }
 
 enum Layout: CaseIterable {
