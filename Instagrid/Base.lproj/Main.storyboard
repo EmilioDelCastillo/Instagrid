@@ -25,6 +25,21 @@
                                 <rect key="frame" x="145" y="54" width="124" height="39"/>
                                 <color key="tintColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="wDL-us-dCw">
+                                <rect key="frame" x="114.66666666666667" y="203.33333333333334" width="184.66666666666663" height="64.000000000000028"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="cb3-Pd-w3y">
+                                        <rect key="frame" x="0.0" y="0.0" width="184.66666666666666" height="9.6666666666666661"/>
+                                        <variation key="heightClass=compact" image="Arrow Left"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe up to share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mt9-ng-Oh0">
+                                        <rect key="frame" x="0.0" y="30.666666666666661" width="184.66666666666666" height="33.333333333333343"/>
+                                        <fontDescription key="fontDescription" name="Delm-Medium" family="Delm" pointSize="30"/>
+                                        <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPG-pb-KUn" userLabel="Preview">
                                 <rect key="frame" x="41.333333333333343" y="287.33333333333337" width="331.33333333333326" height="331.33333333333337"/>
                                 <subviews>
@@ -105,21 +120,6 @@
                                     </button>
                                 </subviews>
                                 <variation key="heightClass=compact" axis="vertical"/>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="wDL-us-dCw">
-                                <rect key="frame" x="114.66666666666667" y="203.33333333333334" width="184.66666666666663" height="64.000000000000028"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="cb3-Pd-w3y">
-                                        <rect key="frame" x="0.0" y="0.0" width="184.66666666666666" height="9.6666666666666661"/>
-                                        <variation key="heightClass=compact" image="Arrow Left"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe up to share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mt9-ng-Oh0">
-                                        <rect key="frame" x="0.0" y="30.666666666666661" width="184.66666666666666" height="33.333333333333343"/>
-                                        <fontDescription key="fontDescription" name="Delm-Medium" family="Delm" pointSize="30"/>
-                                        <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
