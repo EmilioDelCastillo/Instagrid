@@ -69,7 +69,5 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Take pictures directly from Instagrid</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow Instagrid to use pictures from your Librabry</string>
 </dict>
 </plist>

@@ -6,20 +6,27 @@
 //
 
 import UIKit
+import PhotosUI
 
 class MainViewController: UIViewController {
-
+    
     private var instagrid = Instagrid()
-    private var currentImageView: UIImageView?
+    var currentImageView: UIImageView?
     private var imagePicker = UIImagePickerController()
+
+    private var phPickerConfiguration = PHPickerConfiguration()
+    lazy private var phPicker = PHPickerViewController(configuration: phPickerConfiguration)
+
     
     @IBOutlet var layoutSelectionButtons: [UIButton]!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var bottomStackView: UIStackView!
     
     override func viewDidLoad() {
-        setImages(for: .second)
+        setupUI(for: .second)
+        phPickerConfiguration.filter = .images
         imagePicker.delegate = self
+        phPicker.delegate = self
     }
     
     @IBAction private func selectLayout(_ sender: UIButton) {
@@ -112,14 +119,10 @@ class MainViewController: UIViewController {
             pickerAlert.addAction(camera)
         }
         
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let gallery = UIAlertAction(title: "Library", style: .default) { _ in
-                self.imagePicker.sourceType = .photoLibrary
-                self.present(self.imagePicker, animated: true, completion: nil)
-            }
-            pickerAlert.addAction(gallery)
+        let library = UIAlertAction(title: "Library", style: .default) { _ in
+            self.present(self.phPicker, animated: true, completion: nil)
         }
-        
+        pickerAlert.addAction(library)
         
         self.present(pickerAlert, animated: true, completion: nil)
     }
