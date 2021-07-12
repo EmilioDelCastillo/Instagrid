@@ -8,6 +8,8 @@
 import UIKit
 
 struct Instagrid {
-    
+    func share(image: UIImage) {
+        
+    }
 }
 

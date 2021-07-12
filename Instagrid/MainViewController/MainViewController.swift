@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     private var instagrid = Instagrid()
     var currentImageView: UIImageView?
     private var imagePicker = UIImagePickerController()
+    private var swipeDirection: (x:CGFloat, y:CGFloat) = (0, -50)
 
     private var pickerConfiguration = PHPickerConfiguration()
     lazy private var phPicker = PHPickerViewController(configuration: pickerConfiguration)
@@ -32,6 +33,11 @@ class MainViewController: UIViewController {
         
         // Orientation changes
         NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+        
+        // Swipe gesture
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(share(_:)))
+        swipeGesture.direction = .up
+        canvas.addGestureRecognizer(swipeGesture)
     }
     
     deinit {
@@ -88,11 +94,33 @@ class MainViewController: UIViewController {
         pickImage()
     }
     
+    /// Configures the app according to the device orientation.
     @objc func rotated() {
         if UIDevice.current.orientation.isLandscape {
             swipeDirectionLabel.text = "Swipe left to share"
+            swipeDirection = (-50, 0)
+            if let swipe = canvas.gestureRecognizers?.first as? UISwipeGestureRecognizer {
+                swipe.direction = .left
+            }
         } else {
             swipeDirectionLabel.text = "Swipe up to share"
+            swipeDirection = (0, -50)
+            if let swipe = canvas.gestureRecognizers?.first as? UISwipeGestureRecognizer {
+                swipe.direction = .up
+            }
         }
+    }
+    
+    @objc func share (_ sender: UISwipeGestureRecognizer) {
+        guard let image = captureLayout() else { return }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.canvas.transform = self.canvas.transform.translatedBy(x: self.swipeDirection.x, y: self.swipeDirection.y)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5) {
+                self.canvas.transform = CGAffineTransform.identity
+            }
+        }
+        instagrid.share(image: image)
     }
 }
