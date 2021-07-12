@@ -10,6 +10,7 @@ import PhotosUI
 
 class MainViewController: UIViewController {
     
+    // MARK: - Properties
     private var instagrid = Instagrid()
     var currentImageView: UIImageView?
     private var imagePicker = UIImagePickerController()
@@ -18,12 +19,14 @@ class MainViewController: UIViewController {
     private var pickerConfiguration = PHPickerConfiguration()
     lazy private var phPicker = PHPickerViewController(configuration: pickerConfiguration)
 
+    // MARK: - Outlets
     @IBOutlet weak var canvas: UIView!
     @IBOutlet var layoutSelectionButtons: [UIButton]!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var bottomStackView: UIStackView!
     @IBOutlet weak var swipeDirectionLabel: UILabel!
     
+    // MARK: - Life cycle
     override func viewDidLoad() {
         // The default layout is the second one
         setupUI(for: .second)
@@ -44,6 +47,7 @@ class MainViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
+    // MARK: - Actions
     /// Changes the selected layout.
     /// - Parameter sender: The tapped button.
     @IBAction private func selectLayout(_ sender: UIButton) {
@@ -98,29 +102,34 @@ class MainViewController: UIViewController {
     @objc func rotated() {
         if UIDevice.current.orientation.isLandscape {
             swipeDirectionLabel.text = "Swipe left to share"
-            swipeDirection = (-50, 0)
+            swipeDirection = (-view.frame.width, 0)
             if let swipe = canvas.gestureRecognizers?.first as? UISwipeGestureRecognizer {
                 swipe.direction = .left
             }
         } else {
             swipeDirectionLabel.text = "Swipe up to share"
-            swipeDirection = (0, -50)
+            swipeDirection = (0, -view.frame.height)
             if let swipe = canvas.gestureRecognizers?.first as? UISwipeGestureRecognizer {
                 swipe.direction = .up
             }
         }
     }
     
+    /// Animates the swipe and shares the grid.
     @objc func share (_ sender: UISwipeGestureRecognizer) {
         guard let image = captureLayout() else { return }
-        
-        UIView.animate(withDuration: 0.5) {
-            self.canvas.transform = self.canvas.transform.translatedBy(x: self.swipeDirection.x, y: self.swipeDirection.y)
-        } completion: { _ in
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        activityViewController.completionWithItemsHandler = { _, _, _, _ in
             UIView.animate(withDuration: 0.5) {
                 self.canvas.transform = CGAffineTransform.identity
             }
         }
-        instagrid.share(image: image)
+        
+        UIView.animate(withDuration: 0.5) {
+            self.canvas.transform = self.canvas.transform.translatedBy(x: self.swipeDirection.x, y: self.swipeDirection.y)
+            
+        } completion: { _ in
+            self.present(activityViewController, animated: true)
+        }
     }
 }
