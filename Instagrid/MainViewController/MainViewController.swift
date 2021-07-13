@@ -102,18 +102,23 @@ class MainViewController: UIViewController {
     
     /// Configures the app according to the device orientation.
     @objc func rotated() {
-        if UIDevice.current.orientation.isLandscape {
-            swipeDirectionLabel.text = "Swipe left to share"
-            swipeDirection = (-view.frame.width, 0)
-            if let swipe = canvas.gestureRecognizers?.first as? UISwipeGestureRecognizer {
-                swipe.direction = .left
-            }
-        } else {
+        switch UIDevice.current.orientation {
+        case .portrait:
             swipeDirectionLabel.text = "Swipe up to share"
             swipeDirection = (0, -view.frame.height)
             if let swipe = canvas.gestureRecognizers?.first as? UISwipeGestureRecognizer {
                 swipe.direction = .up
             }
+        case .landscapeRight:
+            fallthrough
+        case .landscapeLeft:
+            swipeDirectionLabel.text = "Swipe left to share"
+            swipeDirection = (-view.frame.width, 0)
+            if let swipe = canvas.gestureRecognizers?.first as? UISwipeGestureRecognizer {
+                swipe.direction = .left
+            }
+        default:
+            break
         }
     }
     
