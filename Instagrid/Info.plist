@@ -69,5 +69,7 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Take pictures directly from Instagrid</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save grids to Gallery</string>
 </dict>
 </plist>

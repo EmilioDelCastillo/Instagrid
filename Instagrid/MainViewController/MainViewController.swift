@@ -13,9 +13,9 @@ class MainViewController: UIViewController {
     // MARK: - Properties
     var currentImageView: UIImageView?
     private var imagePicker = UIImagePickerController()
-    private var swipeDirection: (x:CGFloat, y:CGFloat) = (0, -50)
-
     private var pickerConfiguration = PHPickerConfiguration()
+    
+    lazy private var swipeDirection: (x:CGFloat, y:CGFloat) = (0, -view.frame.height)
     lazy private var phPicker = PHPickerViewController(configuration: pickerConfiguration)
     
     var isChangingLayout = false
@@ -36,7 +36,8 @@ class MainViewController: UIViewController {
         phPicker.delegate = self
         
         // Orientation changes
-        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rotated),
+                                               name: UIDevice.orientationDidChangeNotification, object: nil)
         
         // Swipe gesture
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(share(_:)))
@@ -90,7 +91,7 @@ class MainViewController: UIViewController {
         }
         pickerAlert.addAction(library)
         
-        self.present(pickerAlert, animated: true, completion: nil)
+        present(pickerAlert, animated: true, completion: nil)
     }
     
     /// Prepares the app to load an image in the tapped zone.
