@@ -20,9 +20,9 @@ extension MainViewController {
     /// - Parameter layout: The selected layout to display.
     func setupUI(for layout: Layout) {
         /// The total animation duration in seconds
-        let ANIMATION_DURATION = 0.8
+        let animationDuration = 0.8
         isChangingLayout = true
-        UIView.animate(withDuration: ANIMATION_DURATION / 2) {
+        UIView.animate(withDuration: animationDuration / 2) {
             self.topStackView.alpha = 0
             self.bottomStackView.alpha = 0
             
@@ -48,7 +48,7 @@ extension MainViewController {
                 bottomStackView.addArrangedSubview(createImage())
             }
             
-            UIView.animate(withDuration: ANIMATION_DURATION / 2) {
+            UIView.animate(withDuration: animationDuration / 2) {
                 topStackView.alpha = 1
                 bottomStackView.alpha = 1
             } completion: { _ in
